@@ -1,1 +1,44 @@
-# import numpy as np
+import numpy as np
+import pandas as pd
+import random
+
+#question 1
+df = pd.read_csv('https://raw.githubusercontent.com/selva86/datasets/master/Cars93_miss.csv')
+
+print(df.iloc[::20][['Manufacturer', 'Model', 'Type']].sort_values(by="Manufacturer"))
+
+#question2
+
+df = pd.read_csv('https://raw.githubusercontent.com/selva86/datasets/master/Cars93_miss.csv')
+
+min_mean=df["Min.Price"].mean()
+max_mean=df["Max.Price"].mean()
+
+df["Min.Price"].fillna(min_mean, inplace=True)
+df["Max.Price"].fillna(max_mean, inplace=True)
+
+print(df[["Min.Price", "Max.Price"]])
+
+#question 3
+df = pd.DataFrame(np.random.randint(10, 40, 60).reshape(-1, 4))
+
+print(df[(df.sum(axis=1)>100)])
+
+#question 4
+df=np.random.randint(1, 101, size=(4,4))
+
+def calculate_sums(array):
+
+  row_sums = np.apply_along_axis(lambda x: np.sum(x), axis=1, arr=array)
+
+  column_sums = np.apply_along_axis(lambda x: np.sum(x), axis=0, arr=array)
+  return row_sums, column_sums
+
+
+row_sums, column_sums = calculate_sums(df)
+
+print("Original Array:\n", df)
+print("Sum of rows:", row_sums)
+print("Sum of columns:", column_sums)
+
+
