@@ -1,0 +1,29 @@
+#I'm sorry I didn't follow along the last part in class. I'm booking a review session. Im sorry if my answers aren't fully correct.
+#I'll make use of the review session to ask my questions and understand the topic well, and re-try the problems.
+#I've tried to answer the following to the best of my abilities. Thank you!
+
+#question 1
+
+num_cols = ['job_years','hours_per_week','telecommute_days_per_week']
+num_cols
+
+scaler = StandardScaler()
+scaler.fit(X_test[num_cols])
+X_test[num_cols] = scaler.transform(X_test[num_cols])
+
+
+X_test
+
+y_pred = reg.predict(X_test)
+
+
+#question 2
+
+
+mse = mean_squared_error(y_pred, y_test)/np.mean(y_test)
+print("Mean Squared Error:", mse)
+
+mae = mean_absolute_error(y_pred, y_test) / np.mean(y_test)
+print("Mean Absolute Error:", mae)
+
+
