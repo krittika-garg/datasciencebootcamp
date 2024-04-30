@@ -1,0 +1,50 @@
+1. How do you control for biases?
+  Ans: Null hypothesis significance testing is one way to control for biases.
+  We can check that our sample is representative of the population to avoid selection bias.
+  We can use blinding where the subjects and/or researchers do not know which group subjects have been assigned to, to prevent their expectations from affecting the results.
+  We can use a control group to compare with the treatment group and isolate the effect of the treatment.
+  
+2. What are confounding variables?
+   Ans: Confounding variables are factors other than the independent variable that might affect the dependent variable in a study.
+  These are extraneous variables that correlate (positively or negatively) with both the dependent variable and the independent
+  variable, potentially leading to incorrect conclusions about the relationship between the variables of interest.
+  
+3. What is A/B testing?
+ Ans: A/B testing is a randomized control experiment where two versions (A and B) are compared,
+which are identical except for one variation that might affect a user's behavior. It's widely used to 
+compare two versions of a web page, app feature, or product to determine which one performs better in
+terms of metrics like clicks, purchases, or any other significant indicators.
+
+4. When will you use Welch t-test?
+   Ans: A Welch's t-test is used when you want to compare the means of 
+two groups and the two samples have unequal variances and/or unequal sample sizes. 
+
+5. A company claims that the average time its customer service representatives spend on the phone per call is 6 minutes.
+ Ans: You believe that the average time is actually higher. You collect a random sample of 50 calls and find that the average
+time spent on the phone per call in your sample is 6.5 minutes, with a standard deviation of 1.2 minutes. Test whether there 
+is sufficient evidence to support your claim at a significance level of 0.05.
+ Ans: H0: mean is 6 mins, H alt: mean>6 mins
+  n=50>30
+  we use Z test 
+z= (6.5 -6)/(1.2/root 50) = 2.946 approx
+The critical Z-value from the standard normal distribution table for a one-tailed test with α = 0.05 is approximately 1.645.
+  Since 2.946>1.645, we reject the null hypothesis.
+  Based on our analysis, we have sufficient evidence to conclude that the mean time spent on call is greater than 6 mins, at the 0.05 significance level.
+
+
+6. A researcher wants to determine whether there is a difference in the mean scores of two groups of students on a math test. 
+  Group A consists of 25 students who received traditional teaching methods, while Group B consists of 30 students who received 
+  a new teaching method. The average score for Group A is 75, with a standard deviation of 8, and the average score for Group B is 78,
+  with a standard deviation of 7. Test whether there is a significant difference in the mean scores of the two groups at a significance level of 0.05.
+  Ans: We want to test whether there is a difference in the mean scores of two groups of students on a math test. So, we use t-test.
+  We use unequal variance independent t-test here (Welch's T-test).
+Null Hypothesis (H_0): There is no difference in the mean exam scores between Group A and Group B (μ_A = μ_B).
+Alternative Hypothesis (H_1): There is a difference in the mean exam scores between Group A and Group B (μ_A ≠ μ_B).
+t = (x̄_A - x̄_B) / √(s_A^2/n_A + s_B^2/n_B)
+t=(75-78)/(8^2/25 + 7^2/30) = -0.715 approx
+using the formula for degree of freedom and plugging in teh values, we find that the degree of freedom
+for Welch's t-test for the given data is approximately 48.17.
+The critical value for a t-distribution with approximately 48 degrees of freedom at a two-tailed α = 0.05 significance level is approximately 2.011
+Since -0.715< plus minus 2.011, we fail to reject the null hypothesis.
+There is not sufficient evidence to conclude that there is a significant difference in the mean exam scores between Group A and Group B at the 0.05 significance level.
+
