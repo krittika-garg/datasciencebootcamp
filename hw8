@@ -1,0 +1,82 @@
+#question 1
+
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, precision_score, recall_score
+
+
+glass = pd.read_csv('glass.csv')
+X = glass[['Al']] 
+y = glass['Type'].apply(lambda x: 1 if x == 1 else 0)  
+  
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+model = LogisticRegression()
+model.fit(X_train, y_train)
+probabilities = model.predict_proba(X_test)[:, 1]
+
+thresholds = [0.4, 0.5, 0.6, 0.7]
+for threshold in thresholds:
+    preds = (probabilities >= threshold).astype(int)
+    accuracy = accuracy_score(y_test, preds)
+    precision = precision_score(y_test, preds)
+    recall = recall_score(y_test, preds)
+    print(f"Threshold: {threshold}, Accuracy: {accuracy}, Precision: {precision}, Recall: {recall}")
+
+
+#question 2
+
+glass = pd.read_csv('glass.csv')
+y = glass['Type'].apply(lambda x: 1 if x == 1 else 0)
+columns = ['Na', 'Mg', 'Ca']
+results = {col: [] for col in columns}
+thresholds = [0.4, 0.5, 0.6, 0.7]
+
+for col in columns:
+    X = glass[[col]]
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    model = LogisticRegression()
+    model.fit(X_train, y_train)
+    probabilities = model.predict_proba(X_test)[:, 1]
+    for threshold in thresholds:
+        preds = (probabilities >= threshold).astype(int)
+        accuracy = accuracy_score(y_test, preds)
+        precision = precision_score(y_test, preds, zero_division=0)
+        recall = recall_score(y_test, preds, zero_division=0)
+        results[col].append((threshold, accuracy, precision, recall))
+
+for col, metrics in results.items():
+    print(f"Results for {col}:")
+    for metric in metrics:
+        print(f"Threshold: {metric[0]}, Accuracy: {metric[1]}, Precision: {metric[2]}, Recall: {metric[3]}")
+    print("\n")
+
+#question 3
+
+from sklearn.preprocessing import StandardScaler
+
+# Using all available features except the target
+X = glass.drop(['Type'], axis=1)
+y = glass['Type'].apply(lambda x: 1 if x == 1 else 0)
+
+# Split and scale the data
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)
+
+# Logistic Regression
+model = LogisticRegression()
+model.fit(X_train_scaled, y_train)
+
+# Assess predictions
+preds = model.predict(X_test_scaled)
+accuracy = accuracy_score(y_test, preds)
+precision = precision_score(y_test, preds)
+recall = recall_score(y_test, preds)
+
+print(f"Accuracy: {accuracy}, Precision: {precision}, Recall: {recall}")
+
+
+  
